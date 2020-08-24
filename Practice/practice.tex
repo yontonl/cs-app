@@ -1,0 +1,362 @@
+\documentclass[a4paper]{article}
+\usepackage[margin=1in]{geometry} % 设置边距，符合Word设定
+\usepackage{indentfirst}
+\usepackage{fontspec}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily
+}
+
+\newcommand{\wav}{\textasciitilde}
+
+\setmainfont{Times New Roman}
+
+\begin{document}
+\setmonofont{Courier New}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter 1 practice, solution page 64.
+\section*{Chapter 1}
+
+% Page 58
+\subsection*{Problem 1.1}
+\begin{enumerate}
+\item [A.] $25\div((1000\div100)+(1500\div150))=1.25\times$
+\item [B.] $1500\div(25\div1.67-10)=300(km/h)$
+\end{enumerate}
+
+% Page 59
+\subsection*{Problem 1.2}
+$(1-0.1)\div(\frac{1}{4}-0.1)=6\times$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter 2 practice, solution page 179.
+\section*{Chapter 2}
+
+% Page 73
+\subsection*{Problem 2.1}
+\begin{enumerate}
+    \item [A.] \texttt{0010 0101 1011 1001 1101 0010}
+    \item [B.] \texttt{0xAE49}
+    \item [C.] \texttt{1010 1000 1011 0011 1101}
+    \item [D.] \texttt{0x322D96}
+\end{enumerate}
+
+\subsection*{Problem 2.2}
+\begin{tabular}{ccc}
+    $n$&$2^n$(decimal)&$2^n$(hexadecimal)\\
+    \hline
+    5   &32     &\texttt{0x20}\\
+    23  &8388608&\texttt{0x80000}\\
+    15  &32768  &\texttt{0x8000}\\
+    13  &8192   &\texttt{0x2000}\\
+    12  &4096   &\texttt{0x1000}\\
+    6   &64     &\texttt{0x40}\\
+    8   &256    &\texttt{0x100}
+\end{tabular}
+
+% Page 74
+\subsection*{Problem 2.3}
+\begin{tabular}{ccc}
+    Decimal &Binary      &Hexadecimal\\
+    \hline
+    0       &\texttt{0000 0000}   &\texttt{0x00}\\
+    158     &\texttt{1001 1110}   &\texttt{0x9E}\\
+    76      &\texttt{0100 1100}   &\texttt{0x7C}\\
+    145     &\texttt{1001 0001}   &\texttt{0x91}\\
+    174     &\texttt{1010 1110}   &\texttt{0xAE}\\
+    60      &\texttt{0011 1100}   &\texttt{0x3C}\\
+    241     &\texttt{1111 0001}   &\texttt{0xF1}\\
+    116     &\texttt{0111 0101}   &\texttt{0x75}\\
+    189     &\texttt{1011 1101}   &\texttt{0xBD}\\
+    245     &\texttt{1111 0101}   &\texttt{0xF5}
+\end{tabular}
+
+% Page 75
+\subsection*{Problem 2.4}
+\begin{enumerate}
+    \item [A.] \texttt{0x605C+0x5=0x6061}
+    \item [B.] \texttt{0x605C-0x20=0x603C}
+    \item [C.] \texttt{0x605C+32=0x607C}
+    \item [D.] \texttt{0x60FA-0x605C=0x9e}
+\end{enumerate}
+
+% Page 84
+\subsection*{Problem 2.5}
+\begin{enumerate}
+    \item [A.] Little endian: 78 Big endian: 12
+    \item [B.] Little endian: 78 56 Big endian: 12 34
+    \item [C.] Little endian: 78 56 34 Big endian: 12 34 56
+\end{enumerate}
+
+% Page 85
+\subsection*{Problem 2.6}
+\begin{enumerate}
+    \item [A.] \texttt{0x0027C8F8: 0000 0000 0010 0111 1100 1000 1111 1000}\\
+               \texttt{0x4A1F23E0: 0100 1010 0001 1111 0010 0011 1110 0000}
+\end{enumerate}
+
+% Page 85
+\subsection*{Problem 2.7}
+\texttt{6d 6e 6f 70 71 72}
+
+% Page 88
+\subsection*{Problem 2.8}
+\begin{tabular}{cc}
+    Operation                    &Result\\
+    \hline
+    \texttt{a}                   &\texttt{01001110}\\
+    \texttt{b}                   &\texttt{11100001}\\
+    \texttt{\textasciitilde a}   &\texttt{10110001}\\
+    \texttt{\textasciitilde b}   &\texttt{00011110}\\
+    \texttt{a\&b}                &\texttt{01000000}\\
+    \texttt{a|b}                 &\texttt{11101111}\\
+    \texttt{a\^{}b}              &\texttt{10101111}
+\end{tabular}
+
+% Page 89
+\subsection*{Problem 2.9}
+\begin{enumerate}
+    \item [A.] 
+        \begin{tabular}{cc}
+            Color&Complement\\
+            \hline
+            White   &Black\\
+            Blue    &Yellow\\
+            Green   &Magenta\\
+            Cyan    &Red\\
+        \end{tabular}
+    \item [B.]  Blue|Green = Cyan\\
+                Yellow\&Cyan = Green\\
+                Red\texttt{\^}Magenta = Blue
+\end{enumerate}
+
+% Page 90
+\subsection*{Problem 2.10}
+\begin{tabular}{ccc}
+    Step&\tt{*x}&\tt{*y}\\
+    \hline
+    Initially   &\tt{a}  &\tt{b}\\
+    Step 1      &\tt{a}  &\tt{a\^{}b}\\
+    Step 2      &\tt{b}  &\tt{a\^{}b}\\
+    Step 3      &\tt{b}  &\tt{a}
+\end{tabular}
+
+% Page 91
+\subsection*{Problem 2.11}
+\begin{enumerate}
+    \item [A.] first=last=k
+    \item [B.] The funtion implace\_swap was given two identical arguments.
+    \item [C.] Change line 4 to \tt{"first < last"}.
+\end{enumerate}
+
+% Page 91
+\subsection*{Problem 2.12}
+\begin{enumerate}
+    \item [A.] \tt{x\&0xFF}
+    \item [B.] \tt{x\^{}\textasciitilde0xFF}
+    \item [C.] \tt{x|0xFF}
+\end{enumerate}
+
+% Page 92
+\subsection*{Problem 2.13}
+\begin{itemize}
+    \item[] \tt{bis(x, y)}
+    \item[] \tt{bis(bic(x, y), bitc(y, x))} 
+\end{itemize}
+
+% Page 93
+\subsection*{Problem 2.14}
+\begin{tabular}{cccc}
+    Expression  &Value      &Expression &Value\\
+    \hline
+    \tt{a\&b}   &\tt{0x44}  &\tt{a\&\&b}&1\\
+    \tt{a|b}    &\tt{0x57}  &\tt{a||b}  &1\\
+    \tt{\wav a|\wav b}&\tt{0xBB}&\tt{!a||!b}&0\\
+    \tt{a\&!b}  &\tt{0}     &\tt{a\&\&\wav b}&1
+    
+\end{tabular}
+
+% Page 93
+\subsection*{Problem 2.15}
+\begin{lstlisting}
+bool equal(int x, int y) {
+    return !(x ^ y);
+}
+\end{lstlisting}
+
+% Page 94
+\subsection*{Problem 2.16}
+\begin{tabular}{cc|cc|cc|cc}
+    \multicolumn{2}{c|}{\tt{a}}&\multicolumn{2}{|c|}{\tt{a<<2}}&\multicolumn{2}{|c|}{\tt{a>>3}(Logical)}&\multicolumn{2}{|c}{\tt{a>>3}(Arithmetic)}\\
+    \hline
+    Hex&Binary&Hex&Binary&Hex&Binary&Hex&Binary\\
+    \hline
+    \tt{0xD4}&\tt{1101 0100}&\tt{0x50}&\tt{0101 0000}&\tt{0x1A}&\tt{0001 1010}&\tt{0xFA}&\tt{1111 1010}\\
+    \tt{0x64}&\tt{0110 0100}&\tt{0x90}&\tt{1001 0000}&\tt{0x0C}&\tt{0000 1100}&\tt{0x0C}&\tt{0000 1100}\\
+    \tt{0x72}&\tt{0111 0010}&\tt{0xC8}&\tt{1100 1000}&\tt{0x0E}&\tt{0000 1110}&\tt{0x0E}&\tt{0000 1110}\\
+    \tt{0x44}&\tt{0100 0100}&\tt{0x10}&\tt{0001 0000}&\tt{0x08}&\tt{0000 1000}&\tt{0x08}&\tt{0000 1000}
+\end{tabular}
+
+% Page 101
+\subsection*{Problem 2.17}
+\begin{tabular}{c|c|c|c}
+    Hexadecimal &Binary     &$B2U_4(\vec{x})$   &$B2T_4(\vec{x})$\\
+    \hline
+    \tt{0xA}    &\tt{1010}  &$2^3+2^1=10$       &$-2^3+2^1=-6$\\
+    \tt{0x1}    &\tt{0001}  &$2^0=1$            &$2^0=1$\\
+    \tt{0xB}    &\tt{1011}  &$2^3+2^1+2^0=11$   &$-2^3+2^1+2^0=-5$\\
+    \tt{0x2}    &\tt{0010}  &$2^1=2$            &$2^1=2$\\
+    \tt{0x7}    &\tt{0111}  &$2^2+2^1+2^0=7$    &$2^2+2^1+2^0=7$\\
+    \tt{0xC}    &\tt{1100}  &$2^3+2^2=12$       &$-2^3+2^2=-4$
+\end{tabular}
+
+% Page 105
+\subsection*{Problem 2.18}
+\begin{enumerate}
+    \item [A.] \tt{0x2e0=736}
+    \item [B.] \tt{-0x58=-88}
+    \item [C.] \tt{0x28=40}
+    \item [D.] \tt{-0x30=-48}
+    \item [E.] \tt{0x78=120}
+    \item [F.] \tt{0x88=136}
+    \item [G.] \tt{0x1f8=504}
+    \item [H.] \tt{0xc0=192}
+    \item [I.] \tt{-0x48=-72}
+\end{enumerate}
+
+% page 107
+\subsection*{Problem 2.19}
+\begin{tabular}{cc}
+    x&$T2U_4(x)$\\
+    \hline
+    -1&15\\
+    -5&11\\
+    -6&10\\
+    -4&12\\
+    1&1\\
+    8&8
+\end{tabular}
+
+% Page 109
+\subsection*{Problem 2.20}
+pass
+
+% Page 112
+\subsection*{Problem 2.21}
+\begin{tabular}{ccc}
+    Expression&Type&Evaluation\\
+    \hline
+    \tt{-2147483647-1 == 2147483648U}&Unsigned&1\\
+    \tt{-2147483647-1 < 2147483647}&Signed&1\\
+    \tt{-2147483647-1U < 2147483647}&Unsigned&0\\
+    \tt{-2147483647-1 < -2147483647}&Signed&1\\
+    \tt{-2147483647-1U < -2147483647}&Unsigned&1
+    
+\end{tabular}
+
+% Page 115
+\subsection*{Problem 2.22}
+\begin{enumerate}
+    \item [A.] $1100_2=-2^3+2^2=-4$
+    \item [B.] $11100_2=-2^4+2^3+2^2=-4$
+    \item [C.] $111100_2=-2^5+2^4+2^3+2^2=-4$
+\end{enumerate}
+
+% Page 116
+\subsection*{Problem 2.23}
+\begin{enumerate}
+    \item [A.]\begin{tabular}{c|c|c}
+            w&fun1(w)&fun2(w)\\
+            \hline
+            \tt{0x00000076}&\tt{0x00000076}&\tt{0x00000076}\\
+            \tt{0x87654321}&\tt{0x00000021}&\tt{0x00000021}\\
+            \tt{0x000000C9}&\tt{0x000000C9}&\tt{0xFFFFFFC9}\\
+            \tt{0xEDCBA987}&\tt{0x00000087}&\tt{0xFFFFFF87}\\
+          \end{tabular}
+    \item [B.] fun1 return the zero extension of the least significant byte of w.\\
+               fun2 return the sign extension of the least significant byte of w.
+\end{enumerate}
+
+% Page 118
+\subsection*{Problem 2.24}
+\begin{tabular}{cc|cc|cc}
+    \multicolumn{2}{c|}{Hex}&\multicolumn{2}{|c|}{Unsigned}&\multicolumn{2}{|c}{Signed}\\
+    \hline
+    Original&Truncated&Original&Truncated&Original&Truncated\\
+    \hline
+    1&1&1&{1}&1&{1}\\
+    3&3&3&{3}&3&{3}\\
+    5&5&5&{5}&5&{5}\\
+    C&4&12&{4}&-4&{-4}\\
+    E&6&14&{6}&-2&{-2}
+\end{tabular}
+
+% Page 119
+\subsection*{Problem 2.25}
+\begin{enumerate}
+\item []Reason: When length equals 0, length minus 1 equals $UMax_{32}$, so the expression $i \le UMax_{32}$ holds for any unsigned $i$ and hence the for loop would never stop.
+\item []Correction: Change the expression \tt{i <= length - 1} \textrm{to} \tt{i < length}.
+\end{enumerate}
+
+\subsection*{Problem 2.26}
+\begin{enumerate}
+    \item [A.] When string s is shorter than string t.
+    \item [B.] The data type of {strlen(s)-strlen(t)} is unsigned, so it will be greater than 0 for any different strlen(s) and strlen(t). So when s is short than t, this function will return a wrong answer.
+    \item [C.] Change the return value to strlen(s) > strlen(t).
+\end{enumerate}
+
+% Page 125
+\subsection*{Problem 2.27}
+\begin{lstlisting}
+int uadd_ok(unsigned x, unsigned y) {
+    return x + y < x || x + y < y;
+}
+\end{lstlisting}
+
+\subsection*{Problem 2.28}
+\begin{tabular}{c|c|c|c}
+    \multicolumn{2}{c|}{$x$}&\multicolumn{2}{c}{$-^u_4x$}\\
+    \hline
+    Hex&Decimal&Decimal&Hex\\
+    \hline
+    1&1&15&F\\
+    4&4&11&B\\
+    7&7&9&9\\
+    A&10&6&6\\
+    E&14&2&2\\
+
+\end{tabular}
+
+% Page 129
+\subsection*{Problem 2.29}
+\begin{tabular}{ccccc}
+    $x$&$y$&$x+y$&$x+^t_5y$&Case\\
+    \hline
+    -12&-15&-27&5&1\\
+    10100&10001&100101&00101&1\\
+    -8&-8&-16&-16&2\\
+    11000&11000&110000&10000&2\\
+    -9&8&-1&-1&2\\
+    10111&01000&11111&11111&2\\
+    2&5&7&7&3\\
+    00010&00101&00111&00111&3\\
+    12&4&16&-16&4\\
+    01100&00100&10000&10000&4
+\end{tabular}
+
+% Page 130
+\subsection*{Problem 2.30}
+\begin{lstlisting}
+int tadd_ok(int x, int y) {
+    int z = x + y;
+    return (x > 0 && y > 0 && z < 0) || (x < 0 && y < 0 && z > 0);
+}
+\end{lstlisting}
+
+
+
+
+
+
+
+\end{document}
