@@ -444,12 +444,16 @@ int div16(int x) {
 M = 31, N = 8.
 
 % Page 144
+\subsection*{Problem 2.44}
 \begin{enumerate}
     \item [A.] False for x = -2147483648.
     \item [B.] True. If (x \& 7) != 7 is false, namely (x 
     \& 7) == 7, the least 3 significant bits must be [111]. So the most 3 significant bits of x << 29 will be 111 and hence x << 29 < 0.
     \item [C.] False for x = 50000 where the value of x * x equals 2500000000 > 2147483647, causes positive overflow and yields a negative value.
-    \item [D.] 
+    \item [D.] True. For any x >= 0, -x must be smaller than or equal to 0. Negation of a nonnegative value will never cause an overflow.
+    \item [E.] False. This is true for any value of type \tt{int} \rm{except} -2147483648. Negation of -2147483648 is still -2147483648 and is smaller than 0.
+    \item [F.] True. Two's complement addition has the same bit-level represetation as unsigned.
+    \item [G.] True
 \end{enumerate}
 
 
