@@ -5,7 +5,8 @@
 \usepackage{listings}
 \usepackage{color}
 \lstset{
-    basicstyle=\ttfamily
+    basicstyle=\ttfamily\small,
+    language=C
 }
 
 \newcommand{\wav}{\textasciitilde}
@@ -704,7 +705,7 @@ void decode(long *xp, long *yp, long *zp) {
 % Page 228
 \subsubsection*{Problem 3.6}
 \begin{tabular}{ll}
-    Instruciton&Result\\\hline
+    Instruction&Result\\\hline
     \tt{leaq 9(\%rdx), \%rax}&q+9\\
     leaq (\%rdx, \%rbx), \%rax&p+q\\
     leaq (\%rdx, \%rbx, 3), \%rax&q+3p\\
@@ -850,6 +851,411 @@ short test(short x, short y, short z) {
     return val;
 }
 \end{lstlisting}
+
+% Page 250
+\subsubsection*{Problem 3.19}
+\begin{enumerate}
+    \item [A.] Approximately 40 cycles.
+    \item [B.] 65 cycles.
+\end{enumerate}
+
+% Page 255
+\subsubsection*{Problem 3.20}
+\begin{enumerate}
+    \item [A.] / (integral divide).
+    \item [B.] 
+    \begin{enumerate}
+        \item [leaq:] assign x+15 to \%rbx
+        \item [testq:] test x
+        \item [cmovns:] when x is nonnegative, move x to \%rbx
+        \item [sarq:] now if x is negative, \%rbx = x+15, otherwise x itself, so arithmetic right shift 4 bits will compute correctly both negative and nonnegative integer division.
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{Problem 3.21}
+\begin{lstlisting}
+short test(short x, short y) {
+    short val = y + 12;
+    if (x < 0) {
+        if (x >= y) {
+            val = x | y;
+        } else {
+            val = x * y;
+        }
+    } else if (y > 10) {
+        val = x / y;
+    }
+    return val;
+}
+\end{lstlisting}
+
+% Page 257
+\subsubsection*{Problem 3.22}
+\begin{enumerate}
+    \item [A.] Computation overflows.
+    \item [D.] No.
+\end{enumerate}
+
+% Page 258
+\subsubsection*{Problem 3.23}
+\begin{enumerate}
+    \item [A.] \%rbx for x, \%rcx for y, \%rdx for n.
+    \item [B.] By using instruction leaq on line 5.
+\end{enumerate}
+
+% Page 260
+\subsubsection*{Problem 3.24}
+\begin{lstlisting}
+short loop_while(short a, short b) {
+    short result = 0;
+    while (a > b) {
+        result = result + a * b;
+        a = a - 1;
+    }
+    return result;
+}
+\end{lstlisting}
+
+% Page 262
+\subsubsection*{Problem 3.25}
+\begin{lstlisting}
+long loop_while2(long a, long b) {
+    long result = b;
+    while (b > 0) {
+        result = result * a;
+        b = b - a;
+    }
+    return result;
+}
+\end{lstlisting}
+
+% Page 264
+\subsubsection*{Problem 3.26}
+\begin{enumerate}
+    \item [A.] Jump-to-middle method.
+    \item [B.] 
+    \begin{lstlisting}
+short test_one(unsigned short x) {
+    short val = 1;
+    while (x) {
+        val ^= x;
+        x >>= 1
+    }
+    return val & 0;
+}
+    \end{lstlisting}
+\end{enumerate}
+
+% Page 267
+\subsubsection*{Problem 3.27}
+\begin{lstlisting}
+long fibonacci_gd_goto(long n) {
+    long i = 2;
+    long next, first = 0, second = 1;
+    if (n <= 1) 
+        goto done;
+loop:
+    next = first + second;
+    first = second;
+    second = next;
+    i++;
+    if (i <= n) 
+        goto loop;
+done:
+    return n;
+}
+\end{lstlisting}
+
+\subsubsection*{Problem 3.28}
+\begin{enumerate}
+    \item [A.]
+\begin{lstlisting}
+short test_two(unsigned short x) {
+    short val = 0;
+    short i;
+    for (i = 1, val = 65; i; i++) {
+        val += val;
+        val |= (x & 1);
+        x >>= 1;
+    }
+    return val;
+}
+\end{lstlisting}
+\end{enumerate}
+
+\subsubsection*{Problem 3.29}
+\begin{enumerate}
+    \item [A.] The update-expr i++ will be skip, too. In this code, variable i will always equal to 1 and will never be updated.
+    \item [B.]
+\begin{lstlisting}
+long sum = 0;
+long i;
+for (i = 0; i < 10;) {
+    if (i & 1)
+        goto update;
+    sum += i;
+update:
+    i++;
+}
+\end{lstlisting}
+\end{enumerate}
+
+% Page 272
+\subsubsection*{Problem 3.30}
+\begin{enumerate}
+    \item [A.] From -2 to 6.
+    \item [B.] When x is -1, 1, 3, 6.
+\end{enumerate}
+
+% Page 273
+\subsubsection*{Problem 3.31}
+\begin{lstlisting}
+void switcher(long a, long b, long c, long *dest) {
+    long val;
+    switch(a) {
+        case 5:
+            c = b ^ 15;
+        case 0:
+            val = c+112;
+            break;
+        case 2:
+        case 7:
+            val = (c + b) << 2;
+            break;
+        case 4:
+            val = a;
+            break;
+        default:
+            val = b;
+    }
+    *dest = val;
+}
+\end{lstlisting}
+
+% Page 280
+\subsubsection*{Problem 3.32}
+\begin{tabular}{ccc|ccccc|c}
+    \hline
+    \multicolumn{3}{c|}{Instruction}&\multicolumn{5}{c|}{State values(at beginning)}&\\
+    \hline
+    Label&PC&Instruction&\%rdi&\%rsi&\%rax&\%rsp&*\%rsp&Description\\
+    \hline
+    M1&0x400560&callq&10&-&-&0x7fffffffe820&-&Call first(10)\\
+    F1&0x400548&lea&10&-&-&0x7fffffffe818&0x400565&Entry of first\\
+    F2&0x40054c&sub&10&11&-&0x7fffffffe818&0x400565&Assign 11 to \%rsi\\
+    F3&0x400550&callq&9&11&-&0x7fffffffe818&0x400565&Call last(9, 11)\\
+    L1&0x400540&mov&9&11&-&0x7fffffffe810&0x400555&Entry of last\\
+    L2&0x400543&imul&9&11&9&0x7fffffffe810&0x400555&Assign 9 to \%rax\\
+    L3&0x400547&retq&9&11&99&0x7fffffffe810&0x400555&Return 99 from last\\
+    F4&0x400555&retq&9&11&99&0x7fffffffe818&0x400565&Resume first and return 99 from first\\
+    M2&0x400565&mov&9&11&99&0x7fffffffe820&-&Resume main
+    
+\end{tabular}
+
+% Page 282
+\subsubsection*{Problem 3.33}
+\begin{lstlisting}
+int a, char b, long *u, char *v
+\end{lstlisting}
+or 
+\begin{lstlisting}
+int b, char a, long *v, char *u
+\end{lstlisting}
+
+% Page 288
+\subsubsection*{Problem 3.34}
+\begin{enumerate}
+    \item [A.] a0, a1, a2, a3, a4, a5 get stored in callee-saved registers.
+    \item [B.] a6. a7.
+    \item [C.] There is only 6 callee-saved registers, but procedure P needs to store 8 local variables.
+\end{enumerate}
+
+% Page 289
+\subsubsection*{Problem 3.35}
+\begin{enumerate}
+    \item [A.] x.
+    \item [B.]
+\begin{lstlisting}
+long rfun(unsigned long x) {
+    if (x == 0) 
+        return x;
+    unsigned long nx = x >> 2;
+    long rv = rfun(nx);
+    return rv + x;
+}
+\end{lstlisting}
+\end{enumerate}
+
+% Page 292
+\subsubsection*{Problem 3.36}
+\begin{tabular}{ccccc}
+    Array&Element size&Total size&Start address&Element i\\
+    \hline
+    P&4&20&$x_P$&$x_P+4*i$\\
+    Q&2&4&$x_Q$&$x_Q+2*i$\\
+    R&8&72&$x_R$&$x_R+8*i$\\
+    S&8&80&$x_S$&$x_S+8*i$\\
+    T&8&16&$x_T$&$x_T+8*i$\\
+\end{tabular}
+
+% Page 294
+\subsubsection*{Problem 3.37}
+\begin{tabular}{cccc}
+    Expression&Type&Value&Assembly code\\\hline
+    P[1]&short&M[$x_P$]&movb 2(\%rdx), \%ax\\
+    P+3+i&pointer&$x_P+2(i+3)$&leaq 6(\%rdx, \%rcx, 2), \%rax\\
+    P[i*6-5]&short&M[$x_P+6i-5$]&movb -10(\%rdx, \%rcx, 12), \%ax\\
+    P[2]&short&M[$x_P+4$]&movb 4(\%rdx), \%ax\\
+    P[i+2]&pointer&$x_P+4+2i$&leaq 4(\%rdx, \%rcx, 2), \%rax
+\end{tabular}
+
+% Page 295
+\subsubsection*{Problem 3.38}
+M = 5, N = 7
+
+% Page 298
+\subsubsection*{Problem 3.39}
+skip
+
+\subsubsection*{Problem 3.40}
+\begin{lstlisting}
+void fix_set_diag_opt(fix_matrix A, int val) {
+    int *ptr = &A[0][0];
+    int *end = &A[N][N];
+    while (ptr != end) {
+        *ptr = val;
+        ptr += 4*(N+1);
+    }
+}
+\end{lstlisting}
+
+% Page 304
+\subsubsection*{Problem 3.41}
+\begin{enumerate}
+    \item [A.] 
+    \begin{enumerate}
+        \item [p:] 0
+        \item [s.x:] 8
+        \item [s.y:] 10
+        \item [next:] 12
+    \end{enumerate}
+    \item [B.] 20
+    \item [C.]
+    \begin{lstlisting}
+void st_init(struct test *st) {
+    st->s.y = st->s.x;
+    st->p = &(st->s.y);
+    st->next = st;
+}
+    \end{lstlisting}
+\end{enumerate}
+
+% Page 305
+\subsubsection*{Problem 3.42}
+\begin{enumerate}
+    \item [A.]
+    \begin{lstlisting}
+short test(struct ACE *ptr) {
+    short result = 1;
+    while (ptr != NULL) {
+        result *= ptr->val;
+        ptr = ptr->p;
+    }
+    return result;
+}
+    \end{lstlisting}
+    \item [B.] This structure implements link list and procedure test computes the multiplication of every element in this link list.
+\end{enumerate}
+
+% Page 308
+\subsubsection*{Problem 3.43}
+\begin{tabular}{ccc}
+    $expr$&$type$&Code\\\hline
+    up->t1.u&long&movq (\%rdi), \%rax\\
+    && movq \%rax, (\%rsi)\\
+    up->t1.v&short&movw 8(\%rdi), \%ax\\
+    && movw \%ax, (\%rsi)\\
+    \&up->t1.w&char *&addq \$10, \%rdi\\
+    &&movq \%rdi, (\%rsi)\\
+    up->t2.a&int *&movq \%rdi, (\%rsi)\\
+    up->t2.a[up->t1.u]&int&movq (\%rdi), \%rax\\
+    &&movl (\%rdi, \%rax, 4), \%eax\\
+    &&movl \%eax, (\%rsi)\\
+    $\ast$up->t2.p&char&movb 8(\%rdi), \%rax\\
+    &&movb (\%rax), \%al\\
+    &&movb \%al, (\%rsi)
+    
+\end{tabular}
+
+% Page 311
+\subsubsection*{Problem 3.44}
+\begin{tabular}{ccc}
+    struct&offsets&alignment requirement\\\hline
+    P1&0, 4, 8, 16&multiples of 8\\
+    P2&0, 8, 16, 24&multiples of 8\\
+    P3&0, 16&multiples of 8\\
+    P4&0, 16&multiples of 8\\
+    P5&0, 64&multiples of 8
+\end{tabular}
+
+\subsubsection*{Problem 3.45}
+\begin{enumerate}
+    \item [A.] 0, 8, 12, 14, 16, 24, 32, 40
+    \item [B.] 48
+    \item [C.] Optimized struct declaration:
+    \begin{lstlisting}
+struct {
+    int *a;     // 0
+    long e;     // 8
+    double f;   // 16
+    char *h;    // 24
+    int g;      // 32
+    float b;    // 36
+    short d;    // 40
+    char c;     // 42
+} rec;
+    \end{lstlisting}
+    total size: 43 bytes.
+\end{enumerate}
+
+% Page 318
+\begin{enumerate}
+    \item [A.]
+    \begin{tabular}{|cccccccc|c|}
+        \hline
+        00&00&00&00&00&40&00&76&Return address\\
+        \hline
+        01&23&45&67&89&AB&CD&EF&Saved \%rbx\\
+        \hline
+        \multicolumn{8}{|c|}{Unknown}&\\
+        \hline
+        \multicolumn{8}{|c|}{Unknown}&\%rsp pointed\\
+        \hline
+    \end{tabular}
+    \item [B.]
+    \begin{tabular}{|cccccccc|c|}
+        \hline
+        00&00&00&00&00&40&00&34&Corrupted return address\\
+        \hline
+        33&32&31&30&39&38&37&36&Corrupted saved \%rbx\\
+        \hline
+        35&34&33&32&31&30&39&38&written by gets\\
+        \hline
+        37&36&35&34&33&32&31&30&\%rsp pointed\\
+        \hline
+    \end{tabular}
+    \item [C.] 0x400734
+    \item [D.] \%rbx
+    \item [E.] malloc should have strlen(buf+1) as its argument. And the code for get\_line doesn't check if the returned value is NULL.
+\end{enumerate}
+
+% Page 322
+\subsubsection*{Problem 3.47}
+\begin{enumerate}
+    \item [A.] $2^{13}$
+    \item [B.] $2^6=64$
+\end{enumerate}
+
 
 
 
